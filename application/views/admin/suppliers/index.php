@@ -23,13 +23,13 @@
       <div class="col-md">
         <div class="row">
           <div class="col-md-6">
-            <button type="button" class="btn btn-outline-primary mb-2 tombolTambahUser" data-toggle="modal" data-target="#formmodalUser">Tambah Data User</button>
+            <button type="button" class="btn btn-outline-primary mb-2 tombolTambahSupplier" data-toggle="modal" data-target="#formmodalSupplier">Tambah Data Supplier</button>
             <?= $this->session->flashdata('pesan'); ?>
           </div>
         </div>
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">Semua User</h3>
+            <h3 class="card-title">Semua Suppliers</h3>
           </div>
           <!-- /.card-header -->
           <div class="card-body">
@@ -45,20 +45,20 @@
               </tr>
               </thead>
               <tbody>
-                <?php $no = 1; foreach($users as $u) : ?>
+                <?php $no = 1; foreach($suppliers as $s) : ?>
                  <tr>
                    <td><?= $no++; ?></td>
-                   <td><?= $u['username']; ?></td>
-                   <td><?= $u['name']; ?></td>
-                   <td><?= $u['address']; ?></td>
-                   <td><?= $u['level']; ?></td>
+                   <td><?= $s['name_sup']; ?></td>
+                   <td><?= $s['phone']; ?></td>
+                   <td><?= $s['address']; ?></td>
+                   <td><?= $s['description']; ?></td>
                    <td>
-                    <button type="button" class="btn btn-info tombolUbahUser" data-toggle="modal" data-target="#formmodalUser" data-id="<?= $u['id_user']; ?>"><i class="fas fa-user-edit"></i></button>
-                     <a href="<?= base_url('users/delete/') . $u['id_user']; ?>" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus User?"><i class="fas fa-trash"></i></a>
+                    <button type="button" class="btn btn-info tombolUbahSupplier" data-toggle="modal" data-target="#formmodalSupplier" data-id="<?= $s['id_supplier']; ?>"><i class="fas fa-user-edit"></i></button>
+                     <a href="<?= base_url('suppliers/delete/') . $s['id_supplier']; ?>" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus User?"><i class="fas fa-trash"></i></a>
                    </td>
                  </tr>
                 <?php endforeach; ?>
-                <?php if(empty($users)) : ?>
+                <?php if(empty($suppliers)) : ?>
                   <div class="alert alert-danger" role="alert">Data User Kosong</div>
                 <?php endif; ?>
               </tbody>
@@ -74,7 +74,7 @@
   <!-- /.content -->
 
 <!-- Modal Tambah User -->
-<div class="modal fade" id="formmodalUser">
+<div class="modal fade" id="formmodalSupplier">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -105,6 +105,15 @@
             <label for="address">address</label>
             <textarea name="address" id="address" class="form-control"></textarea>
             <small class="text-danger muted"><?= form_error('address'); ?></small>
+          </div>
+          <div class="form-group">
+            <label for="level">Level</label>
+            <select name="level" id="level" class="form-control">
+              <option value="">-- Pilih Level --</option>
+              <option value="admin">Admin</option>
+              <option value="user">Kasir</option>
+            </select>
+            <small class="text-danger muted"><?= form_error('level'); ?></small>
           </div>
           <div class="form-group">
             <label for="foto">Foto</label><br>

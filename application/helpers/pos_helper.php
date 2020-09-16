@@ -9,3 +9,11 @@ function cekSession()
 		redirect('auth');
 	}
 }
+
+function cekMenu()
+{
+	$ci = get_instance();
+	if($ci->session->userdata('level') == 'user') {
+		redirect('user/dashboard');
+	}
+}

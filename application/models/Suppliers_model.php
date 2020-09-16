@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class User_model extends CI_Model {
+class Suppliers_model extends CI_Model {
 	public function addUser()
 	{
 		$foto = $_FILES['foto']['name'];

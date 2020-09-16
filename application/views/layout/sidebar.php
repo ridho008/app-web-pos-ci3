@@ -78,7 +78,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="../widgets.html" class="nav-link">
+            <a href="<?= base_url('suppliers'); ?>" class="nav-link">
               <i class="nav-icon fas fa-truck"></i>
               <p>Suppliers</p>
             </a>

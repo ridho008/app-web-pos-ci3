@@ -8,6 +8,7 @@ $('.tombolTambahUser').click(function() {
 	$('#name').val('');
 	$('#password').val('');
 	$('#address').val('');
+	$('#level').val('');
 	$('#inputHiddenFoto').val('');
 	$('.imgTampil').attr('src', '');
 });
@@ -29,6 +30,7 @@ $('.tombolUbahUser').click(function() {
 			console.log(data);
 			$('#id_user').val(data.id_user);
 			$('#username').val(data.username);
+			$('#level').val(data.level);
 			$('#password').val(data.password);
 			$('#address').val(data.address);
 			$('#name').val(data.name);
