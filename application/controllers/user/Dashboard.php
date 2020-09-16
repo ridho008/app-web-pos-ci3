@@ -6,9 +6,6 @@ class Dashboard extends CI_Controller {
 	{
 		parent::__construct();
 		cekSession();
-		if($this->session->userdata('level') == 'user') {
-			redirect('user/dashboard');
-		}
 	}
 
 	public function index()
@@ -17,7 +14,7 @@ class Dashboard extends CI_Controller {
 		$data['user'] = $this->db->get_where('users', ['username' => $this->session->userdata('username')])->row_array();
 		$this->load->view('layout/header', $data);
 		$this->load->view('layout/sidebar', $data);
-		$this->load->view('dashboard', $data);
+		$this->load->view('user/dashboard', $data);
 		$this->load->view('layout/footer');
 	}
 }
