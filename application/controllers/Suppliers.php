@@ -26,18 +26,18 @@ class Suppliers extends CI_Controller {
 		$this->load->view('layout/footer');
 	}
 
-	public function formUser()
+	public function formSupplier()
 	{
-		$this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[users.username]');
-		$this->form_validation->set_rules('name', 'Name', 'required|trim');
+		$this->form_validation->set_rules('name', 'Name Supplier', 'required|trim');
 		$this->form_validation->set_rules('address', 'Address', 'required|trim');
-		$this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[3]');
+		$this->form_validation->set_rules('phone', 'Phone', 'required|trim');
+		$this->form_validation->set_rules('description', 'Description', 'required|trim');
 		if($this->form_validation->run() == FALSE) {
 			$this->index();
 		} else {
-			$this->User_model->addUser();
-			$this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Data User Berhasil Ditambahkan.</div>');
-			redirect('users');
+			$this->Suppliers_model->addSupplier();
+			$this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Data Supplier Berhasil Ditambahkan.</div>');
+			redirect('suppliers');
 		}
 	}
 
@@ -49,16 +49,16 @@ class Suppliers extends CI_Controller {
 		redirect('suppliers');
 	}
 
-	public function getUbahUser()
+	public function getUbahSupplier()
 	{
-		echo json_encode($this->User_model->getUserById($_POST['id']));
+		echo json_encode($this->Suppliers_model->getSupplierById($_POST['id']));
 	}
 
-	public function formUbah()
+	public function formUbahSupplier()
 	{
-		$this->User_model->EditUser($_POST);
-		$this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert"><i class="fa fa-trash"></i> Data User <strong>Berhasil Diubah.</strong></div>');
-		redirect('users');
+		$this->Suppliers_model->EditSupplier($_POST);
+		$this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert"><i class="fa fa-trash"></i> Data Supplier <strong>Berhasil Diubah.</strong></div>');
+		redirect('suppliers');
 	}
 
 
