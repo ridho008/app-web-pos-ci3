@@ -123,5 +123,38 @@ $(function() {
 	});
 
 
+	// Ubah Categori
+	$('.tombolTambahCategori').click(function() {
+		$('.modal-title').html('Tambah Data Categori');
+		$('.modal-footer button[type=submit]').html('Tambah');
+
+		$('#id_categori').val('');
+		$('#name').val('');
+	});
+
+	$('.tombolUbahCategori').click(function() {
+		$('.modal-title').html('Ubah Data Categori');
+		$('.modal-footer button[type=submit]').html('Ubah');
+
+		$('.modal-body form').attr('action', 'http://localhost/app-web-pos-ci3/categories/formUbahCategori');
+
+		const id = $(this).data('id');
+		// console.log(id);
+		$.ajax({
+			url: 'http://localhost/app-web-pos-ci3/categories/getUbahCategori',
+			data: {id: id},
+			dataType: 'json',
+			method: 'post',
+			success: function(data) {
+				// console.log(data);
+				$('#id_categori').val(data.id_categori);
+				$('#name').val(data.name_cate);
+			}
+
+		});
+
+	});
+
+
 
 });
