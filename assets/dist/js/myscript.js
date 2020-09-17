@@ -83,5 +83,45 @@ $(function() {
 	});
 
 
+	// Ubah Customer
+	$('.tombolTambahCustomer').click(function() {
+		$('.modal-title').html('Tambah Data Customer');
+		$('.modal-footer button[type=submit]').html('Tambah');
+
+		$('#id_customer').val('');
+		$('#name').val('');
+		$('#address').val('');
+		$('#description').val('');
+		$('#phone').val('');
+		$('#gender').val('');
+	});
+
+	$('.tombolUbahCustomer').click(function() {
+		$('.modal-title').html('Ubah Data Customer');
+		$('.modal-footer button[type=submit]').html('Ubah');
+
+		$('.modal-body form').attr('action', 'http://localhost/app-web-pos-ci3/customers/formUbahCustomer');
+
+		const id = $(this).data('id');
+		// console.log(id);
+		$.ajax({
+			url: 'http://localhost/app-web-pos-ci3/customers/getUbahCustomer',
+			data: {id: id},
+			dataType: 'json',
+			method: 'post',
+			success: function(data) {
+				// console.log(data);
+				$('#id_customer').val(data.id_customer);
+				$('#name').val(data.name_cus);
+				$('#phone').val(data.phone);
+				$('#address').val(data.address);
+				$('#gender').val(data.gender);
+			}
+
+		});
+
+	});
+
+
 
 });
