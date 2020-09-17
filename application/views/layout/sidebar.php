@@ -72,25 +72,25 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="../widgets.html" class="nav-link">
+            <a href="<?= base_url('dashboard'); ?>" class="nav-link<?= $this->uri->segment(1) != 'dashboard' ? '' : ' active'; ?>">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>Dashboard</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="<?= base_url('suppliers'); ?>" class="nav-link">
+            <a href="<?= base_url('suppliers'); ?>" class="nav-link<?= $this->uri->segment(1) != 'suppliers' ? '' : ' active'; ?>">
               <i class="nav-icon fas fa-truck"></i>
               <p>Suppliers</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="<?= base_url('customers'); ?>" class="nav-link">
+            <a href="<?= base_url('customers'); ?>" class="nav-link<?= $this->uri->segment(1) != 'customers' ? '' : ' active'; ?>">
               <i class="nav-icon fas fa-users"></i>
               <p>Customers</p>
             </a>
           </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+          <li class="nav-item has-treeview<?= $this->uri->segment(1) == 'categories' || $this->uri->segment(1) == 'pitem' || $this->uri->segment(1) == 'units' ? ' menu-open' : '' ?>">
+            <a href="#" class="nav-link<?= $this->uri->segment(1) == 'categories' || $this->uri->segment(1) == 'pitem' || $this->uri->segment(1) == 'units' ? ' active' : '' ?>">
               <i class="nav-icon fas fa-archive"></i>
               <p>
                 Products
@@ -99,19 +99,19 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?= base_url('categories'); ?>" class="nav-link">
+                <a href="<?= base_url('categories'); ?>" class="nav-link<?= $this->uri->segment(1) == 'categories' ? ' active' : '' ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Categories</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="../tables/data.html" class="nav-link">
+                <a href="<?= base_url('units'); ?>" class="nav-link<?= $this->uri->segment(1) != 'units' ? '' : ' active'; ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Units</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="../tables/jsgrid.html" class="nav-link">
+                <a href="<?= base_url('pitem'); ?>" class="nav-link<?= $this->uri->segment(1) != 'pitem' ? '' : ' active'; ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Items</p>
                 </a>

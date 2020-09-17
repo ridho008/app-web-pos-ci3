@@ -152,7 +152,38 @@ $(function() {
 			}
 
 		});
+	});
 
+
+	// Ubah Unit
+	$('.tombolTambahUnit').click(function() {
+		$('.modal-title').html('Tambah Data Unit');
+		$('.modal-footer button[type=submit]').html('Tambah');
+
+		$('#id_unit').val('');
+		$('#name').val('');
+	});
+
+	$('.tombolUbahUnit').click(function() {
+		$('.modal-title').html('Ubah Data Unit');
+		$('.modal-footer button[type=submit]').html('Ubah');
+
+		$('.modal-body form').attr('action', 'http://localhost/app-web-pos-ci3/units/formUbahUnit');
+
+		const id = $(this).data('id');
+		// console.log(id);
+		$.ajax({
+			url: 'http://localhost/app-web-pos-ci3/units/getUbahUnit',
+			data: {id: id},
+			dataType: 'json',
+			method: 'post',
+			success: function(data) {
+				// console.log(data);
+				$('#id_unit').val(data.id_unit);
+				$('#name').val(data.name_unit);
+			}
+
+		});
 	});
 
 
