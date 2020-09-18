@@ -79,7 +79,7 @@
       </div>
       <div class="modal-body">
         <form action="<?= base_url('units/formUnit'); ?>" method="post">
-          <input type="text" name="id_unit" id="id_unit">
+          <input type="hidden" name="id_unit" id="id_unit">
           <div class="form-group">
             <label for="name">Name Unit</label>
             <input type="text" name="name" id="name" class="form-control">

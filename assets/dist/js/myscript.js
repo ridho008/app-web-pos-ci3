@@ -187,5 +187,46 @@ $(function() {
 	});
 
 
+	// Ubah Product Item
+	$('.tombolTambahPitem').click(function() {
+		$('.modal-title').html('Tambah Data Product Item');
+		$('.modal-footer button[type=submit]').html('Tambah');
+
+		$('#id_pitem').val('');
+		$('#name').val('');
+		$('#price').val('');
+		$('#categori').val('');
+		$('#unit').val('');
+	});
+
+	$('.tombolUbahPitem').click(function() {
+		$('.modal-title').html('Ubah Data Product Item');
+		$('.modal-footer button[type=submit]').html('Ubah');
+
+		$('.modal-body form').attr('action', 'http://localhost/app-web-pos-ci3/pitem/formUbahPitem');
+
+		const id = $(this).data('id');
+		// console.log(id);
+		$.ajax({
+			url: 'http://localhost/app-web-pos-ci3/pitem/getUbahPitem',
+			data: {id: id},
+			dataType: 'json',
+			method: 'post',
+			success: function(data) {
+				// console.log(data);
+				$('#id_pitem').val(data.id_pitem);
+				$('#name').val(data.name_pitem);
+				$('#barcode').val(data.barcode);
+				$('#price').val(data.price);
+				$('#categori').val(data.id_categori);
+				$('#unit').val(data.id_unit);
+				$('#inputUbahFoto').val(data.photo_product);
+				$('#tampilFotoProduct').attr('src', 'http://localhost/app-web-pos-ci3/assets/img/product/' + data.photo_product);
+			}
+
+		});
+	});
+
+
 
 });
