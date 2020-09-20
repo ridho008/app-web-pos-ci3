@@ -12,13 +12,14 @@
 	},
 	"require": {
 		"php": ">=5.3.7",
-		"picqer/php-barcode-generator": "^2.0"
+		"picqer/php-barcode-generator": "^2.0",
+		"endroid/qr-code": "^3.9"
 	},
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"
 	},
 	"require-dev": {
 		"mikey179/vfsstream": "1.1.*",
-		"phpunit/phpunit": "~7.0"
+		"phpunit/phpunit": "4.* || 5.*"
 	}
 }

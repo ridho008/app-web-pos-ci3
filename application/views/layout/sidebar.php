@@ -90,7 +90,7 @@
             </a>
           </li>
           <li class="nav-item has-treeview<?= $this->uri->segment(1) == 'categories' || $this->uri->segment(1) == 'pitem' || $this->uri->segment(1) == 'units' ? ' menu-open' : '' ?>">
-            <a href="#" class="nav-link<?= $this->uri->segment(1) == 'categories' || $this->uri->segment(1) == 'pitem' || $this->uri->segment(1) == 'units' ? ' active' : '' ?>">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-archive"></i>
               <p>
                 Products
@@ -121,7 +121,7 @@
           <li class="nav-header">EXAMPLES</li>
           
           
-          <li class="nav-item has-treeview">
+          <li class="nav-item has-treeview<?= $this->uri->segment(2) == 'in' || $this->uri->segment(2) == 'out' ? ' menu-open' : '' ?>">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-shopping-cart"></i>
               <p>
@@ -131,13 +131,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../mailbox/mailbox.html" class="nav-link">
+                <a href="../mailbox/mailbox.html" class="nav-link<?= $this->uri->segment(2) == 'out' ? ' active' : ''; ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Stock Out</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="../mailbox/mailbox.html" class="nav-link">
+                <a href="<?= base_url('stock/in'); ?>" class="nav-link<?= $this->uri->segment(2) == 'in' ? ' active' : ''; ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Stock In</p>
                 </a>

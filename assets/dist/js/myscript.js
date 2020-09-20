@@ -213,7 +213,7 @@ $(function() {
 			dataType: 'json',
 			method: 'post',
 			success: function(data) {
-				// console.log(data);
+				console.log(data);
 				$('#id_pitem').val(data.id_pitem);
 				$('#name').val(data.name_pitem);
 				$('#barcode').val(data.barcode);
@@ -226,6 +226,54 @@ $(function() {
 
 		});
 	});
+
+
+	// Generate Barcode
+	$('.tombolGenerateBarcode').click(function() {
+
+		const id = $(this).data('id');
+		// console.log(id);
+		$.ajax({
+			url: 'http://localhost/app-web-pos-ci3/pitem/getUbahPitem',
+			data: {id: id},
+			dataType: 'json',
+			method: 'post',
+			success: function(data) {
+				// console.log(data);
+				$('.modalGenerate').html();
+			}
+
+		});
+	});
+
+
+	$('.tombolUbahPitem').click(function() {
+		if($('.tombolGenerateBarcode')) {
+			$('.tombolGenerateBarcode').toggle();
+		} else {
+			$('.tombolGenerateBarcode').show();
+		}
+	})
+
+
+	// Halaman Stock In
+	  $('.selectStockIn').click(function() {
+	    var id_pitem = $(this).data('id'); 
+	    var barcode = $(this).data('barcode'); 
+	    var name_pitem = $(this).data('name'); 
+	    var name_unit = $(this).data('unit'); 
+	    var stock = $(this).data('stock');
+
+	    $('#id_pitem').val(id_pitem);
+	    $('#barcode').val(barcode);
+	    $('#name_pitem').val(name_pitem);
+	    $('#name_unit').val(name_unit);
+	    $('#stock').val(stock);
+	    $('#modalStockIn').modal('hide');
+	    $('#formmodalUnit').modal('hide');
+	  });
+
+	
 
 
 

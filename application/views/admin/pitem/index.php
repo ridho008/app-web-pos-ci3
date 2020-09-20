@@ -33,16 +33,21 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body">
-            <table id="example1" class="table table-bordered table-striped">
+            <table id="table-pitem" class="table table-bordered table-striped">
               <thead>
               <tr>
                 <th>No</th>
                 <th>Photo</th>
                 <th>Barcode</th>
                 <th>Name Product</th>
+                <th>Categori</th>
+                <th>Unit</th>
+                <th>Price</th>
+                <th>Stok</th>
                 <th><i class="fas fa-cogs"></i></th>
               </tr>
               </thead>
+                    <!-- https://github.com/picqer/php-barcode-generator -->
               <tbody>
                 <?php $no = 1; foreach($pitem as $p) : ?>
                  <tr>
@@ -52,40 +57,13 @@
                    </td>
                    <td>
                     <?= $p['barcode']; ?>
-                    <!-- https://github.com/picqer/php-barcode-generator -->
-                    <a href="<?= base_url('pitem/barcode_qrcode/') . $p['id_pitem']; ?>" data-toggle="modal" data-target="#formModalGenerate<?= $p['id_pitem']; ?>" title="Generate Barcode" class="btn btn-secondary btn-sm"><i class="fas fa-barcode"></i></a> <div class="modal fade" id="formModalGenerate<?= $p['id_pitem']; ?>">
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h4 class="modal-title">Generate Barcode</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            <form action="" method="post">
-                              <input type="hidden" value="<?= $p['id_pitem']; ?>" name="id_pitem" id="id_pitem" class="form-control">
-                              <div class="card text-center">
-                                <div class="card-body">
-                                  <?php 
-                                  // var_dump($p['barcode']);
-                                  $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
-                                  echo '<img width="400" src="data:image/png;base64,' . base64_encode($generator->getBarcode($p['barcode'], $generator::TYPE_CODE_128)) . '">';
-                                  ?>
-                                <p class="lead mb-0"><?= $p['barcode']; ?></p>
-                                </div>
-                              </div>
-                              
-                            </form>
-                          </div>
-                        </div>
-                        <!-- /.modal-content -->
-                      </div>
-                      <!-- /.modal-dialog -->
-                    </div>
-                    <!-- /.modal -->  
+                    <a href="<?= base_url('pitem/barcode/') . $p['id_pitem']; ?>" title="Generate Barcode" target="_blank" class="btn btn-secondary btn-sm"><i class="fas fa-barcode"></i></a>
                    </td>
                    <td><?= $p['name_pitem']; ?></td>
+                   <td><?= $p['name_cate']; ?></td>
+                   <td><?= $p['name_unit']; ?></td>
+                   <td><?= number_format($p['price'], 0, ',', '.'); ?></td>
+                   <td><?= $p['stock']; ?></td>
                    <td>
                     <button type="button" class="btn btn-info tombolUbahPitem" data-toggle="modal" data-target="#formmodalPitem" data-id="<?= $p['id_pitem']; ?>"><i class="fas fa-user-edit"></i></button>
                      <a href="<?= base_url('pitem/delete/') . $p['id_pitem']; ?>" onclick="return confirm('Yakin')" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus Customer?"><i class="fas fa-trash"></i></a>
@@ -174,8 +152,19 @@
 </div>
 <!-- /.modal -->
 
-<!-- Modal View Generate Barcode -->
-
+<!-- <script src="<?= base_url('assets/'); ?>plugins/jquery/jquery.min.js"></script>
+<script>
+  $(function() {
+     $('#table-pitem').dataTable({
+      "processing": true,
+      "serverSide": true,
+      "ajax": {
+        "url": "<?= base_url('pitem/get_ajax'); ?>",
+        "type": "post"
+      }
+     });
+  });
+</script> -->
 
 
 

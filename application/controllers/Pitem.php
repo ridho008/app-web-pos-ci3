@@ -16,6 +16,40 @@ class Pitem extends CI_Controller {
 		// }
 	}
 
+	// Datatable Server Side
+	function get_ajax() {
+        $list = $this->P_Item_model->get_datatables();
+        $data = array();
+        $no = @$_POST['start'];
+        foreach ($list as $item) {
+            $no++;
+            $row = array();
+            $row[] = $no.".";
+            $row[] = $item->photo_product != null ? '<img src="'.base_url('assets/img/product/'.$item->photo_product).'" class="img" style="width:100px">' : null;
+            $row[] = $item->barcode.'<br><a href="'.site_url('pitem/barcode/'.$item->id_pitem).'" class="btn btn-default btn-xs">Generate <i class="fa fa-barcode"></i></a>';
+            $row[] = $item->name_pitem;
+            $row[] = $item->name_cate;
+            $row[] = $item->name_unit;
+            $row[] = number_format($item->price, 0, ',', '.');
+            $row[] = $item->stock;
+            // add html for action
+            $row[] = '<button type="button" class="btn btn-info tombolUbahPitem" data-toggle="modal" data-target="#formmodalPitem" data-id="'.$item->id_pitem.'"><i class="fas fa-user-edit"></i></button>
+                    <a href="'.base_url('pitem/delete/'.$item->id_pitem).'" onclick="return confirm(\'Yakin hapus data?\')"  class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Delete</a>';
+            // $row[] = '<a href="'.site_url('pitem/formUbahPitem/'.$item->id_pitem).'" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i> Update</a>
+            //         <a href="'.site_url('item/del/'.$item->id_pitem).'" onclick="return confirm(\'Yakin hapus data?\')"  class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Delete</a>';
+            $data[] = $row;
+        }
+        $output = array(
+                    "draw" => @$_POST['draw'],
+                    "recordsTotal" => $this->P_Item_model->count_all(),
+                    "recordsFiltered" => $this->P_Item_model->count_filtered(),
+                    "data" => $data,
+                );
+        // output to json format
+        echo json_encode($output);
+    }
+    // End Datatable Server Side
+
 	public function index()
 	{
 		$data['title'] = 'Product Items';
@@ -29,7 +63,7 @@ class Pitem extends CI_Controller {
 		// echo $generator->getBarcode('123456', $generator::TYPE_CODE_128);
 
 
-		$data['pitem'] = $this->db->get('product_item')->result_array();
+		$data['pitem'] = $this->P_Item_model->joinPitemCateUnit();
 		$data['categories'] = $this->db->get('categories')->result_array();
 		$data['units'] = $this->db->get('units')->result_array();
 		$this->load->view('layout/header', $data);
@@ -77,12 +111,14 @@ class Pitem extends CI_Controller {
 		redirect('pitem');
 	}
 
-	public function barcode_qrcode($id)
+	public function barcode($id)
 	{
+		$data['title'] = 'Barcode';
+		$data['user'] = $this->db->get_where('users', ['username' => $this->session->userdata('username')])->row_array();
 		$data['barcodeview'] = $this->P_Item_model->getPitemById($id);
 		$this->load->view('layout/header', $data);
 		$this->load->view('layout/sidebar', $data);
-		$this->load->view('admin/pitem/index', $data);
+		$this->load->view('admin/pitem/barcode', $data);
 		$this->load->view('layout/footer');
 	}
 
