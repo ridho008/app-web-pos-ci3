@@ -21,6 +21,7 @@ class Stock extends CI_Controller {
 		$data['user'] = $this->db->get_where('users', ['username' => $this->session->userdata('username')])->row_array();
 		$data['suppliers'] = $this->db->get('suppliers')->result_array();
 		$data['item'] = $this->P_Item_model->joinPitemCateUnit();
+		$data['t_stock_in'] = $this->Stock_model->joinTStock();
 		$this->load->view('layout/header', $data);
 		$this->load->view('layout/sidebar', $data);
 		$this->load->view('admin/transaction/stock_in/index', $data);
@@ -45,6 +46,26 @@ class Stock extends CI_Controller {
 			$this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Data Stock In Berhasil Ditambahkan.</div>');
 			redirect('stock/in');
 		}
+	}
+
+	public function delete()
+	{
+		$stockId = $this->uri->segment(4);
+		$pitemId = $this->uri->segment(5);
+		$qty = $this->Stock_model->get($stockId)->row()->quantity;
+		$data = [
+			'quantity' => $qty,
+			'id_item' => $pitemId
+		];
+		// $this->Stock_model->updateStockIn($data);
+		$this->Stock_model->delStockIn($stockId, $pitemId, $data);
+		$this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Data Stock In Berhasil Dihapus.</div>');
+		redirect('stock/in');
+	}
+
+	public function getDetailStockIn()
+	{
+		echo json_encode($this->Stock_model->getStockInById($_POST['id']));
 	}
 
 	

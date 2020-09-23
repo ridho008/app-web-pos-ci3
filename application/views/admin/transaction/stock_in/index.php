@@ -23,7 +23,7 @@
       <div class="col-md">
         <div class="row">
           <div class="col-md-6">
-            <button type="button" class="btn btn-outline-primary mb-2 tombolTambahUnit" data-toggle="modal" data-target="#formmodalUnit">Tambah Stock Barang Masuk</button>
+            <button type="button" class="btn btn-outline-primary mb-2 tombolTambahStockIn" data-toggle="modal" data-target="#formmodalUnit">Tambah Stock Barang Masuk</button>
             <?= $this->session->flashdata('pesan'); ?>
           </div>
         </div>
@@ -33,7 +33,35 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body">
-            
+            <div class="table-responsive">
+              <table id="example1" class="table table-bordered table-striped">
+              <thead>
+              <tr>
+                <th>No</th>
+                <th>Barcode</th>
+                <th>Product Item</th>
+                <th>Quantity</th>
+                <th>Date</th>
+                <th><i class="fas fa-cogs"></i></th>
+              </tr>
+              </thead>
+              <tbody>
+                <?php $no = 1; foreach($t_stock_in as $tsi) : ?>
+                  <tr>
+                    <td><?= $no++; ?></td>
+                    <td><?= $tsi['barcode']; ?></td>
+                    <td><?= $tsi['name_pitem']; ?></td>
+                    <td><?= $tsi['quantity']; ?></td>
+                    <td><?= date('d-m-Y', strtotime($tsi['date'])); ?></td>
+                    <td>
+                      <button type="button" data-id="<?= $tsi['id_stock']; ?>" class="btn btn-outline-primary tombolDetailStockIn" data-toggle="modal" data-target="#modalDetailStockIn"><i class="fas fa-eye"></i></button>
+                      <a href="<?= base_url('stock/in/del/') . $tsi['id_stock'] . '/' . $tsi['id_pitem']; ?>" onclick="return confirm('Yakin ?')" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                    </td>
+                  </tr>
+                <?php endforeach; ?>
+              </tbody>
+            </table>
+            </div>
           </div>
           <!-- /.card-body -->
         </div>
@@ -170,8 +198,49 @@
 <!-- /.modal -->
 
 
-<!-- <script src="<?= base_url('assets/'); ?>plugins/jquery/jquery.min.js"></script> -->
-<script>
-  // Halaman stock in add
-
-</script>
+<!-- Detail -->
+<div class="modal fade" id="modalDetailStockIn">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Select Product Item</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped">
+            <tr>
+              <th>Barcode</th>
+              <td class="barcode"></td>
+            </tr>
+            <tr>
+              <th>Item Name</th>
+              <td class="item"></td>
+            </tr>
+            <tr>
+              <th>Detail</th>
+              <td class="detail"></td>
+            </tr>
+            <tr>
+              <th>Supplier</th>
+              <td class="supplier"></td>
+            </tr>
+            <tr>
+              <th>Quantity</th>
+              <td class="quantity"></td>
+            </tr>
+            <tr>
+              <th>Date</th>
+              <td class="date"></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

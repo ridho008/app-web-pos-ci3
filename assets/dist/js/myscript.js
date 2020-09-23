@@ -273,6 +273,32 @@ $(function() {
 	    $('#formmodalUnit').modal('hide');
 	  });
 
+
+
+	// Halaman Stock In -- DETAIL
+	$('.tombolDetailStockIn').click(function() {
+		$('.modal-title').html('Detail Data Stock Masuk/In');
+
+		const id = $(this).data('id');
+		// console.log(id);
+		$.ajax({
+			url: 'http://localhost/app-web-pos-ci3/stock/getDetailStockIn',
+			data: {id: id},
+			dataType: 'json',
+			method: 'post',
+			success: function(data) {
+				console.log(data);
+				$('.barcode').html(data.barcode);
+				$('.item').html(data.name_pitem);
+				$('.detail').html(data.detail);
+				$('.supplier').html(data.name_sup);
+				$('.quantity').html(data.quantity);
+				$('.date').html(data.date);
+			}
+
+		});
+	});
+
 	
 
 
