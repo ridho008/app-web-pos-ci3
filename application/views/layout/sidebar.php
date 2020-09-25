@@ -121,7 +121,7 @@
           <li class="nav-header">EXAMPLES</li>
           
           
-          <li class="nav-item has-treeview<?= $this->uri->segment(2) == 'in' || $this->uri->segment(2) == 'out' ? ' menu-open' : '' ?>">
+          <li class="nav-item has-treeview<?= $this->uri->segment(2) == 'in' || $this->uri->segment(2) == 'out' || $this->uri->segment(1) == 'sale' ? ' menu-open' : '' ?>">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-shopping-cart"></i>
               <p>
@@ -131,7 +131,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../mailbox/mailbox.html" class="nav-link<?= $this->uri->segment(2) == 'out' ? ' active' : ''; ?>">
+                <a href="<?= base_url('sale'); ?>" class="nav-link<?= $this->uri->segment(1) == 'sale' ? ' active' : ''; ?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Sale</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= base_url('stock/out'); ?>" class="nav-link<?= $this->uri->segment(2) == 'out' ? ' active' : ''; ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Stock Out</p>
                 </a>
@@ -171,7 +177,7 @@
           <?php if($this->session->userdata('level') == 'admin') : ?>
           <li class="nav-header">Setting</li>
           <li class="nav-item">
-            <a href="<?= base_url('users'); ?>" class="nav-link">
+            <a href="<?= base_url('users'); ?>" class="nav-link<?= $this->uri->segment(1) == 'users' ? ' active' : ''; ?>">
               <i class="fas fa-users nav-icon"></i>
               <p>Users</p>
             </a>

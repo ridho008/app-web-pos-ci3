@@ -54,5 +54,8 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['stock/in/del/(:num)/(:num)'] = 'stock/delete/$1/$2';
+$route['stock/out/del/(:num)/(:num)'] = 'stock/delout/$1/$2';
 $route['stock/in'] = 'stock/index';
+$route['stock/out'] = 'stock/stockout';
+$route['stock/out/process'] = 'stock/processout';
 // $route['stock/in/add'] = 'stock/addStockIn';

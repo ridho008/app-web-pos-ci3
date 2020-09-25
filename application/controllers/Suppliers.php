@@ -45,6 +45,11 @@ class Suppliers extends CI_Controller {
 	{
 		$this->db->where('id_supplier', $id);
 		$this->db->delete('suppliers');
+		$error = $this->db->error();
+		// var_dump($error); die;
+		if($error['code'] != 0) {
+			echo "<script>alert('Tidak Bisa Dihapus');</script>";
+		}
 		$this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert"><i class="fa fa-trash"></i> Data Supplier <strong>Berhasil Dihapus.</strong></div>');
 		redirect('suppliers');
 	}

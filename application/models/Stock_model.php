@@ -68,4 +68,46 @@ class Stock_model extends CI_Model {
 		return $this->db->get()->row_array();
 	}
 
+
+	// Stock Out
+	public function joinTStockOut()
+	{
+		$this->db->select('*');
+		$this->db->from('t_stock');
+		$this->db->join('product_item', 'product_item.id_pitem = t_stock.id_item');
+		$this->db->join('suppliers', 'suppliers.id_supplier = t_stock.id_supplier');
+		$this->db->where('type', 'out');
+		$this->db->order_by('t_stock.id_stock', 'desc');
+		return $this->db->get()->result_array();
+	}
+
+	public function addStockOut()
+	{
+		$data = [
+			'id_item' => html_escape($this->input->post('id_pitem', true)),
+			'type' => 'out',
+			'detail' => html_escape($this->input->post('detail', true)),
+			'id_supplier' => '1',
+			'quantity' => html_escape($this->input->post('quantity', true)),
+			'date' => $this->input->post('date', true),
+			'id_user' => $this->session->userdata('id_user')
+		];
+
+		$quantity = $this->input->post('quantity');
+		$id_pitem = $this->input->post('id_pitem');
+		$sql = "UPDATE product_item SET stock = stock - '$quantity' WHERE id_pitem = '$id_pitem'";
+		$this->db->query($sql);
+		$this->db->insert('t_stock', $data);
+	}
+
+	public function delStockOut($stockId, $pitemId, $data)
+	{
+		$qty = $data['quantity'];
+		$sql = "UPDATE product_item SET stock = stock + '$qty' WHERE id_pitem = '$pitemId'";
+		$this->db->query($sql);
+		$this->db->where('id_stock', $stockId);
+		$this->db->delete('t_stock');
+	}
+
+
 }
